@@ -1,0 +1,24 @@
+Before using alembic you have to set the correct pythonpath
+source .env
+
+Start database
+docker run --rm --name bedello_postgres -d -v $(pwd)/db_vol:/var/lib/postgresql/data -e POSTGRES_PASSWORD=bedello1234 -e POSTGRES_USER=bedello_app -e POSTGRES_DB=bedello -d -p 5432:5432 postgres:12-alpine
+
+Generate migration
+alembic revision --autogenerate -m "Added category table"      
+
+# Run migrations
+alembic upgrade head
+
+
+# Start application
+./start.zsh
+
+
+
+# Run tests
+pytest tests -v
+
+Links:
+TEST
+https://testdriven.io/blog/fastapi-crud/
