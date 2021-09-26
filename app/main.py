@@ -1,4 +1,5 @@
 import logging
+from os import path
 
 import uvicorn  # type: ignore
 from fastapi import FastAPI
@@ -7,7 +8,10 @@ from starlette.middleware.cors import CORSMiddleware
 from app.api.v1 import api_router
 from app.config import settings
 
-logging.config.fileConfig("logging.conf", disable_existing_loggers=False)  # type: ignore
+# NIcolas: TODO get logging path correct
+log_file_path = path.join(path.dirname(path.abspath(__file__)), "logging.config")
+print(log_file_path)
+logging.config.fileConfig("../logging.conf", disable_existing_loggers=False)  # type: ignore
 logger = logging.getLogger(__name__)
 
 app = FastAPI()
